@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 #设为宽格式
 st.set_page_config(layout = 'wide')
 
@@ -7,6 +8,10 @@ st.title('SF Trees')
 st.write('''This app analyses trees in San Francisco using a dataset kindly provided by SF DPW.''')
 
 trees_df = pd.read_csv('trees.csv')
+today = pd.to_datetime('today')
+trees_df['date'] = pd.to_datetime(trees_df['date'])
+trees_df['age'] = (today - trees_df['date']).dt.days
+unique_caretakers = trees_df['caretakers'].unique()
 #按树木所有者分类
 owners = st.sidebar.multiselect('Tree Owner Filter',trees_df['caretaker'].unique())
 if owners:
@@ -14,7 +19,14 @@ if owners:
 df_dbh_grouped = pd.DataFrame(trees_df.groupby(['dbh']).count()['tree_id'])
 df_dbh_grouped.columns = ['tree_count']
 
-st.line_chart(df_dbh_grouped)
+col1,col2 = st.columns(2)
+with col1:
+    fig = px.histogram(trees_df,x=trees_df['dbh'],title='Tree Width')
+    st.plotly_chart(fig)
+with col2:
+    fig = px.histogram(trees_df,x=trees_df['age'],title='Tree Age')
+    st.plotly_chart(fig)
+st.write('Trees by Location')
 trees_df = trees_df.dropna(subset=['longitude','latitude'])
 trees_df = trees_df.sample(n=1000,replace=True)
 st.map(trees_df)
