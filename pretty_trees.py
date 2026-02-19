@@ -21,15 +21,23 @@ df_dbh_grouped.columns = ['tree_count']
 # #option2
 # col1,col2,col3 = st.columns((10,10,10))
 # #option3，列之间有大间隙
-col1,col2,col3 = st.columns(3,gap = 'large')
-with col1:
-    #如果让图不再与列的末端对齐
-    st.line_chart(df_dbh_grouped,use_container_width = False)
-with col2:
-    st.bar_chart(df_dbh_grouped)
-with col3:
-    st.area_chart(df_dbh_grouped)
+# col1,col2,col3 = st.columns(3,gap = 'large')
+# with col1:
+#     #如果让图不再与列的末端对齐
+#     st.line_chart(df_dbh_grouped,use_container_width = False)
+# with col2:
+#     st.bar_chart(df_dbh_grouped)
+# with col3:
+#     st.area_chart(df_dbh_grouped)
 #上面代码的简易写法,用with语句更整洁，更易于理解和调试 
 # col1.write('Column 1')
 # col2.write('Column 2')
 # col3.write('Column 3')  
+#使用标签
+tab1,tab2,tab3 = st.tabs(['Line Chart','Bar Chart','Area Chart'])
+with tab1:
+    st.line_chart(df_dbh_grouped)
+with tab2:
+    st.bar_chart(df_dbh_grouped)
+with tab3:
+    st.area_chart(df_dbh_grouped)
