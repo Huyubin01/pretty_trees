@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import os
+st.write("当前运行目录:", os.getcwd())
+st.write("当前目录下的文件:", os.listdir("."))
 #设为宽格式
 st.set_page_config(layout = 'wide')
 
