@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+#设为宽格式
+st.set_page_config(layout = 'wide')
 
 st.title('SF Trees')
 st.write('''This app analyses trees in San Francisco using a dataset kindly provided by SF DPW.''')
