@@ -20,10 +20,11 @@ df_dbh_grouped.columns = ['tree_count']
 # col1,col2,col3 = st.columns((1,1,1))
 # #option2
 # col1,col2,col3 = st.columns((10,10,10))
-# #option3
-col1,col2,col3 = st.columns(3)
+# #option3，列之间有大间隙
+col1,col2,col3 = st.columns(3,gap = 'large')
 with col1:
-    st.line_chart(df_dbh_grouped)
+    #如果让图不再与列的末端对齐
+    st.line_chart(df_dbh_grouped,use_container_width = False)
 with col2:
     st.bar_chart(df_dbh_grouped)
 with col3:
