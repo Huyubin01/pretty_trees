@@ -29,10 +29,6 @@ with col1:
 with col2:
     fig = px.histogram(trees_df,x=trees_df['age'],title='Tree Age',color_discrete_sequence=[graph_color],)
     st.plotly_chart(fig,use_container_width=True)
-st.write('Trees by Location')
-trees_df = trees_df.dropna(subset=['longitude','latitude'])
-trees_df = trees_df.sample(n=1000,replace=True)
-st.map(trees_df)
 
 #让用户输入决定列宽度
 # first_width = st.number_input('First Width',min_value=1,value=1)
