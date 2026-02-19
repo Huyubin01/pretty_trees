@@ -10,4 +10,4 @@ trees_df_filtered = trees_df[trees_df['legal_status'] == 'Private']
 #可读
 #st.dataframe(trees_df)
 #可编辑
-edited_df = st.experimental_data_editor(trees_df_filtered)
+edited_df = st.data_editor(trees_df_filtered)
