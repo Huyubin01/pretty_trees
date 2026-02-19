@@ -13,7 +13,9 @@ trees_df['date'] = pd.to_datetime(trees_df['date'])
 trees_df['age'] = (today - trees_df['date']).dt.days
 unique_caretakers = trees_df['caretaker'].unique()
 #按树木所有者分类
-owners = st.sidebar.multiselect('Tree Owner Filter',trees_df['caretaker'].unique())
+owners = st.sidebar.multiselect('Tree Owner Filter',unique_caretakers)
+#添加颜色
+graph_color = st.sidebar.color_picker('Graph Colors')
 if owners:
     trees_df = trees_df[trees_df['caretaker'].isin(owners)]
 df_dbh_grouped = pd.DataFrame(trees_df.groupby(['dbh']).count()['tree_id'])
@@ -21,11 +23,12 @@ df_dbh_grouped.columns = ['tree_count']
 
 col1,col2 = st.columns(2)
 with col1:
-    fig = px.histogram(trees_df,x=trees_df['dbh'],title='Tree Width')
-    st.plotly_chart(fig)
+    fig = px.histogram(trees_df,x=trees_df['dbh'],title='Tree Width',color_discrete_sequence=[graph_color],)
+    fig.update_xaxes(title_text='Width')
+    st.plotly_chart(fig,use_container_width=True)
 with col2:
-    fig = px.histogram(trees_df,x=trees_df['age'],title='Tree Age')
-    st.plotly_chart(fig)
+    fig = px.histogram(trees_df,x=trees_df['age'],title='Tree Age',color_discrete_sequence=[graph_color],)
+    st.plotly_chart(fig,use_container_width=True)
 st.write('Trees by Location')
 trees_df = trees_df.dropna(subset=['longitude','latitude'])
 trees_df = trees_df.sample(n=1000,replace=True)
