@@ -14,6 +14,11 @@ if owners:
 df_dbh_grouped = pd.DataFrame(trees_df.groupby(['dbh']).count()['tree_id'])
 df_dbh_grouped.columns = ['tree_count']
 
+st.line_chart(df_dbh_grouped)
+trees_df = trees_df.dropna(subset=['longitude','latitude'])
+trees_df = trees_df.sample(n=1000,replace=True)
+st.map(trees_df)
+
 #让用户输入决定列宽度
 # first_width = st.number_input('First Width',min_value=1,value=1)
 # second_width = st.number_input('Second Width',min_value=1,value=1)
@@ -38,10 +43,10 @@ df_dbh_grouped.columns = ['tree_count']
 # col2.write('Column 2')
 # col3.write('Column 3')  
 #使用标签
-tab1,tab2,tab3 = st.tabs(['Line Chart','Bar Chart','Area Chart'])
-with tab1:
-    st.line_chart(df_dbh_grouped)
-with tab2:
-    st.bar_chart(df_dbh_grouped)
-with tab3:
-    st.area_chart(df_dbh_grouped)
+# tab1,tab2,tab3 = st.tabs(['Line Chart','Bar Chart','Area Chart'])
+# with tab1:
+#     st.line_chart(df_dbh_grouped)
+# with tab2:
+#     st.bar_chart(df_dbh_grouped)
+# with tab3:
+#     st.area_chart(df_dbh_grouped)
