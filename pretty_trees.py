@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import plotly.express as px
+import          .express as px
 #设为宽格式
 st.set_page_config(layout = 'wide')
 
@@ -11,7 +11,7 @@ trees_df = pd.read_csv('trees.csv')
 today = pd.to_datetime('today')
 trees_df['date'] = pd.to_datetime(trees_df['date'])
 trees_df['age'] = (today - trees_df['date']).dt.days
-unique_caretakers = trees_df['caretakers'].unique()
+unique_caretakers = trees_df['caretaker'].unique()
 #按树木所有者分类
 owners = st.sidebar.multiselect('Tree Owner Filter',trees_df['caretaker'].unique())
 if owners:
